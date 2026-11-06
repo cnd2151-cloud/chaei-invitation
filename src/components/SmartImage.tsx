@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset';
 import { useState, type ImgHTMLAttributes } from 'react';
 
 /** 지연 로딩 + 누락 이미지 대체 화면 */
@@ -27,6 +28,7 @@ export default function SmartImage({
   return (
     <img
       {...rest}
+      src={rest.src ? asset(rest.src) : rest.src}
       className={`${className} smart-img${state === 'ok' ? ' is-loaded' : ''}`}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"

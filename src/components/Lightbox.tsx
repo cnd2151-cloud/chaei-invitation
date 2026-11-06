@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { lockBody, unlockBody } from '../lib/body';
@@ -49,7 +50,7 @@ export default function Lightbox({
     if (index === null) return;
     [index - 1, index + 1].forEach((i) => {
       const im = new Image();
-      im.src = photos[(i + n) % n];
+      im.src = asset(photos[(i + n) % n]);
     });
   }, [index, photos, n]);
 
@@ -109,7 +110,7 @@ export default function Lightbox({
       >
         <img
           key={index}
-          src={photos[index!]}
+          src={asset(photos[index!])}
           alt={`사진 ${index! + 1} / ${n}`}
           className={`lightbox__img${anim ? ' is-anim' : ''}`}
           style={{ transform: `translate3d(${dx}px,0,0)` }}

@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset';
 import { useEffect, useState } from 'react';
 import { CONFIG } from '../config';
 import { CANVAS, DOODLES, LAYER_BOX, LAYER_ORDER } from '../generated/layers';
@@ -51,7 +52,7 @@ function Doodles({ start }: { start: boolean }) {
       {DOODLES.map((d) => (
         <image
           key={d.name}
-          href={d.src}
+          href={asset(d.src)}
           x={d.x}
           y={d.y}
           width={d.w}
@@ -78,7 +79,7 @@ export default function Hero() {
       requestAnimationFrame(() => setReady(true));
     };
     const img = new Image();
-    img.src = '/images/main/baby.webp';
+    img.src = asset('/images/main/baby.webp');
     img.decode?.().then(go, go);
     img.onload = go;
     const t = window.setTimeout(go, 1200);
@@ -108,7 +109,7 @@ export default function Hero() {
                 }
               >
                 <img
-                  src={`/images/main/${n}.webp`}
+                  src={asset(`/images/main/${n}.webp`)}
                   alt={ALT[n]}
                   aria-hidden={ALT[n] ? undefined : true}
                   draggable={false}
