@@ -81,7 +81,7 @@ ul, ol { list-style: none; }
   flex-direction: column;
   justify-content: center;
   padding: max(18px, env(safe-area-inset-top)) 16px 54px;
-  background: var(--bg);
+  background: var(--bg-sub);
 }
 .hero__inner {
   position: relative;
