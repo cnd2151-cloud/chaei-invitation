@@ -541,6 +541,7 @@ ul, ol { list-style: none; }
    ========================================================== */
 .loc__venue { font-family: var(--f-serif); font-size: 19px; color: var(--text); }
 .loc__addr { margin: 6px 0 14px; font-size: 14px; color: #666; }
+.loc__detail { display: block; margin-top: 2px; color: var(--text); }
 .loc__date { margin-top: 18px; font-size: 13.5px; color: var(--text-sub); }
 .loc__map {
   margin: 30px calc(var(--gutter) * -1) 0;
@@ -577,7 +578,7 @@ ul, ol { list-style: none; }
 .nav-btn__logo.is-kakao { background: #fee500; color: #3c1e1e; }
 .nav-btn__logo.is-tmap { background: linear-gradient(135deg, #e3007f, #4d3bff); }
 .loc__guide { margin-top: 34px; text-align: left; border-top: 1px solid var(--line); }
-.loc__guide > div { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 18px 2px; border-bottom: 1px solid var(--line); }
+.loc__guide > div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 18px 2px; border-bottom: 1px solid var(--line); }
 .loc__guide dt { font-size: 13.5px; color: var(--point); font-weight: 500; }
 .loc__guide dd { font-size: 13.5px; color: #666; white-space: pre-line; }
 

@@ -47,7 +47,7 @@ export default function Location() {
   };
 
   const copyAddr = async () => {
-    const ok = await copyText(event.address);
+    const ok = await copyText([event.address, event.addressDetail].filter(Boolean).join(' '));
     toast(ok ? '주소가 복사되었습니다.' : '복사에 실패했어요. 주소를 길게 눌러 복사해 주세요.');
   };
 
@@ -58,7 +58,10 @@ export default function Location() {
       <SectionTitle en="LOCATION" ko="오시는 길" id="t-loc" />
       <div className="loc__info" data-reveal>
         <p className="loc__venue">{event.venue}</p>
-        <p className="loc__addr">{event.address}</p>
+        <p className="loc__addr">
+          {event.address}
+          {event.addressDetail && <span className="loc__detail">{event.addressDetail}</span>}
+        </p>
         <button type="button" className="chip" onClick={copyAddr}>
           <CopyIcon /> 주소 복사
         </button>
@@ -93,12 +96,12 @@ export default function Location() {
 
       <dl className="loc__guide" data-reveal>
         <div>
-          <dt>주차 안내</dt>
-          <dd>{directions.parking}</dd>
+          <dt>대중교통</dt>
+          <dd>{directions.transit}</dd>
         </div>
         <div>
-          <dt>대중교통 안내</dt>
-          <dd>{directions.transit}</dd>
+          <dt>자가용</dt>
+          <dd>{directions.parking}</dd>
         </div>
       </dl>
     </section>
