@@ -76,25 +76,25 @@ export const CONFIG = {
   story: [
     {
       photo: '/images/story/01.webp',
-      date: '2025. 00. 00',
+      date: '2025. 05. 06',
       title: '봄별이와의 첫 인사',
       desc: '봄처럼 따스하게, 별처럼 반짝이며\n우리에게 찾아온 작은 기적.',
     },
     {
       photo: '/images/story/02.webp',
-      date: '2025. 00. 00',
+      date: '2025. 12. 24',
       title: '우리가족과의 첫 만남',
       desc: '처음 품에 안은 그날,\n세상의 모든 것이 새로워졌어요.',
     },
     {
       photo: '/images/story/03.webp',
-      date: '2026. 00. 00',
+      date: '2026. 04. 02',
       title: '첫번째 축하 100일',
       desc: '눈을 맞추고 방긋 웃어 주던\n백 일의 기적 같은 날들.',
     },
     {
       photo: '/images/story/04.webp',
-      date: '2026. 00. 00',
+      date: '2026. 07. 11',
       title: '200일의 축복',
       desc: '옹알이로 대답하고, 손을 뻗어 세상을 만지며\n하루하루 자라는 채이.',
     },
