@@ -11,6 +11,7 @@
   --line: #eeeeee;
   --ink: #1d1b1b;
   --outside: #f4f1ee;
+  --hero-bg: #f4f1ee; /* 메인 비주얼(첫 화면) 배경 */
 
   --f-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   --f-serif: 'Gowun Batang', 'Nanum Myeongjo', serif;
@@ -81,7 +82,7 @@ ul, ol { list-style: none; }
   flex-direction: column;
   justify-content: center;
   padding: max(18px, env(safe-area-inset-top)) 16px 54px;
-  background: var(--bg-sub);
+  background: var(--hero-bg);
 }
 .hero__inner {
   position: relative;
