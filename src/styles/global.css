@@ -76,8 +76,9 @@ ul, ol { list-style: none; }
    ========================================================== */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  /* 화면 높이에 맞추되, 페이지 전체 높이로 펼쳐 보여주는 앱 화면에서도 과하게 늘어나지 않도록 상한 */
+  min-height: min(100vh, 940px);
+  min-height: min(100svh, 940px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,8 +95,8 @@ ul, ol { list-style: none; }
 /* 화면 높이에 맞춰 메인 비주얼 크기 결정 → 제목/정보까지 첫 화면에 들어오게 */
 .hero__stage {
   position: relative;
-  width: min(100%, calc((100vh - 170px) / 1.48));
-  width: min(100%, calc((100svh - 170px) / 1.48));
+  width: min(100%, calc((min(100vh, 940px) - 170px) / 1.48));
+  width: min(100%, calc((min(100svh, 940px) - 170px) / 1.48));
   user-select: none;
   -webkit-user-select: none;
 }
@@ -163,8 +164,8 @@ ul, ol { list-style: none; }
 @keyframes hw-draw { to { stroke-dashoffset: 0; } }
 
 .hero__title {
-  width: min(84%, calc((100vh - 170px) / 1.48 * 0.8));
-  width: min(84%, calc((100svh - 170px) / 1.48 * 0.8));
+  width: min(84%, calc((min(100vh, 940px) - 170px) / 1.48 * 0.8));
+  width: min(84%, calc((min(100svh, 940px) - 170px) / 1.48 * 0.8));
   margin: -2.5% auto 0;
   line-height: 0;
   font-weight: 400;

@@ -63,13 +63,17 @@ export default function Snow({ density = 34 }: { density?: number }) {
     const stop = () => { cancelAnimationFrame(raf); raf = 0; };
 
     resize();
-    const ro = new ResizeObserver(resize); ro.observe(cv);
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? play() : stop(); });
-    io.observe(cv);
+    const ro = 'ResizeObserver' in window ? new ResizeObserver(resize) : null;
+    ro?.observe(cv);
+    if (!ro) window.addEventListener('resize', resize);
+    const io = 'IntersectionObserver' in window
+      ? new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? play() : stop(); })
+      : null;
+    io?.observe(cv);
     const vis = () => (document.hidden ? stop() : play());
     document.addEventListener('visibilitychange', vis);
     play();
-    return () => { stop(); ro.disconnect(); io.disconnect(); document.removeEventListener('visibilitychange', vis); };
+    return () => { stop(); ro?.disconnect(); window.removeEventListener('resize', resize); io?.disconnect(); document.removeEventListener('visibilitychange', vis); };
   }, [density]);
 
   return <canvas ref={ref} className="snow" aria-hidden="true" />;

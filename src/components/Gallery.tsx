@@ -23,6 +23,7 @@ export default function Gallery() {
   };
   useLayoutEffect(() => {
     measure();
+    if (!('ResizeObserver' in window)) return;
     const ro = new ResizeObserver(measure);
     if (grid.current) ro.observe(grid.current);
     return () => ro.disconnect();
