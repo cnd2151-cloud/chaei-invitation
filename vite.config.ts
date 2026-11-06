@@ -49,6 +49,7 @@ export default defineConfig({
   plugins: [react(), ogMetaPlugin()],
   define: {
     __SITE_URL__: JSON.stringify(resolveSiteUrl()),
+    __PREVIEW__: JSON.stringify(process.env.PREVIEW === '1'),
   },
   build: { target: 'es2019', assetsInlineLimit: 0 },
 });

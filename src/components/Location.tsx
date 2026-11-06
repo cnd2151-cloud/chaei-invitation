@@ -4,6 +4,7 @@ import { copyText } from '../lib/clipboard';
 import { useToast } from '../lib/toast';
 import SectionTitle from './SectionTitle';
 import { CopyIcon } from './Icons';
+import { asset } from '../lib/asset';
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
 const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent));
@@ -69,7 +70,20 @@ export default function Location() {
       </div>
 
       <div className="loc__map" data-reveal>
-        {mapOn ? (
+        {event.mapImage ? (
+          <a className="loc__map-img" href={naver} target="_blank" rel="noopener noreferrer" aria-label={`${event.venue} 지도 크게 보기`}>
+            <img src={asset(event.mapImage)} alt={`${event.venue} 약도`} />
+          </a>
+        ) : __PREVIEW__ ? (
+          <div className="loc__map-cover is-static">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" fill="none" stroke="currentColor" strokeWidth="1.3" />
+              <circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" strokeWidth="1.3" />
+            </svg>
+            <span>지도는 배포된 초대장에서 표시됩니다</span>
+            <small>아래 버튼으로 지도 앱을 열 수 있어요</small>
+          </div>
+        ) : mapOn ? (
           <iframe title={`${event.venue} 지도`} src={embed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
         ) : (
           <button type="button" className="loc__map-cover" onClick={() => setMapOn(true)}>
