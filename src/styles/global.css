@@ -119,28 +119,26 @@ ul, ol { list-style: none; }
   to   { transform: rotate(1.6deg); }
 }
 
+/* 바닥 그림자 (빛: 왼쪽 위 → 그림자: 오른쪽 뒤) */
 .floor-shadow {
   position: absolute;
   z-index: 0;
-  transform: translate(-50%, -50%) scaleX(0.85);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
-  /* 넓고 옅은 그림자 */
-  background: radial-gradient(closest-side, rgba(92, 70, 56, 0.34), rgba(92, 70, 56, 0.15) 55%, rgba(92, 70, 56, 0) 100%);
-  filter: blur(3px);
-  transition: opacity 1.2s var(--ease) 0.45s, transform 1.3s var(--ease) 0.45s;
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg)) scale(0.8, 0.6);
+  transition: opacity 1.2s var(--ease) 0.5s, transform 1.4s var(--ease) 0.5s;
 }
-/* 바닥에 닿는 부분의 진한 그림자 */
-.floor-shadow::after {
-  content: '';
-  position: absolute;
-  left: 18%; right: 18%; top: 30%; bottom: 22%;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(70, 50, 40, 0.42), rgba(70, 50, 40, 0) 100%);
-  filter: blur(2px);
+.floor-shadow.is-cast {
+  /* 오브젝트 쪽(왼쪽)이 진하고 오른쪽 끝으로 흐려지는 그림자 */
+  background: radial-gradient(closest-side at 38% 52%, rgba(86, 64, 50, 0.36), rgba(86, 64, 50, 0.15) 55%, rgba(86, 64, 50, 0) 100%);
+  filter: blur(4px);
 }
-.is-ready .floor-shadow { opacity: var(--o, 1); transform: translate(-50%, -50%); }
+.floor-shadow.is-core {
+  background: radial-gradient(closest-side, rgba(58, 42, 34, 0.5), rgba(58, 42, 34, 0.2) 60%, rgba(58, 42, 34, 0) 100%);
+  filter: blur(1.5px);
+}
+.is-ready .floor-shadow { opacity: var(--o, 1); transform: translate(-50%, -50%) rotate(var(--r, 0deg)); }
 
 .hero__doodles {
   position: absolute;
