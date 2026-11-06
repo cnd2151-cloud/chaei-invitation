@@ -12,6 +12,16 @@ const ALT: Record<string, string> = {
   cupcake: '',
 };
 
+/**
+ * 바닥 그림자 (메인 비주얼 기준 %, 중심 x/y · 너비 · 높이 · 진하기)
+ * 위치 조정이 필요하면 숫자만 바꾸세요.
+ */
+const SHADOWS = [
+  { name: 'baby', x: 43.5, y: 97.2, w: 46, h: 6.5, o: 1 },
+  { name: 'bear', x: 20.5, y: 89.2, w: 27, h: 5, o: 0.85 },
+  { name: 'cupcake', x: 72.5, y: 95.2, w: 19, h: 4.2, o: 0.75 },
+];
+
 /** 손그림 장식: 원본 손그림 이미지를 중심선 마스크로 그려가며 드러냄 */
 function Doodles({ start }: { start: boolean }) {
   const [done, setDone] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -92,6 +102,14 @@ export default function Hero() {
       <Snow />
       <div className="hero__inner">
         <div className="hero__stage" style={{ aspectRatio: `${CANVAS.w} / ${CANVAS.h}` }}>
+          {SHADOWS.map((sh) => (
+            <span
+              key={sh.name}
+              className={`floor-shadow floor-shadow--${sh.name}`}
+              aria-hidden="true"
+              style={{ left: `${sh.x}%`, top: `${sh.y}%`, width: `${sh.w}%`, height: `${sh.h}%`, '--o': sh.o } as React.CSSProperties}
+            />
+          ))}
           {LAYER_ORDER.map((n, i) => {
             const b = LAYER_BOX[n];
             return (

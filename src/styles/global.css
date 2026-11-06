@@ -119,6 +119,29 @@ ul, ol { list-style: none; }
   to   { transform: rotate(1.6deg); }
 }
 
+.floor-shadow {
+  position: absolute;
+  z-index: 0;
+  transform: translate(-50%, -50%) scaleX(0.85);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  /* 넓고 옅은 그림자 */
+  background: radial-gradient(closest-side, rgba(92, 70, 56, 0.34), rgba(92, 70, 56, 0.15) 55%, rgba(92, 70, 56, 0) 100%);
+  filter: blur(3px);
+  transition: opacity 1.2s var(--ease) 0.45s, transform 1.3s var(--ease) 0.45s;
+}
+/* 바닥에 닿는 부분의 진한 그림자 */
+.floor-shadow::after {
+  content: '';
+  position: absolute;
+  left: 18%; right: 18%; top: 30%; bottom: 22%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(70, 50, 40, 0.42), rgba(70, 50, 40, 0) 100%);
+  filter: blur(2px);
+}
+.is-ready .floor-shadow { opacity: var(--o, 1); transform: translate(-50%, -50%); }
+
 .hero__doodles {
   position: absolute;
   inset: 0;
