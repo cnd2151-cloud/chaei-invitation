@@ -69,8 +69,7 @@ if __name__ == '__main__':
     og()
     if len(sys.argv) > 1 and sys.argv[1] == 'og':
         sys.exit()
-    # parents (portrait)
-    shot(470, 470, 520, 4/5, CREAM, 'public/images/parents/baby.webp', (800, 1000), 'soft')
+    # parents: tools/gen_parents.py 가 아빠·엄마 어릴 적 사진 콜라주를 만듭니다
     # story 01..05
     shot(475, 455, 300, 4/5, GREY, 'public/images/story/01.webp', (800, 1000), 'bw')
     shot(470, 520, 420, 4/5, IVORY, 'public/images/story/02.webp', (800, 1000), 'soft')

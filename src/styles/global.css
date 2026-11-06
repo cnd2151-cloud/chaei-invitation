@@ -345,23 +345,24 @@ ul, ol { list-style: none; }
    SECTION 03 — PARENTS
    ========================================================== */
 .parents__photo {
-  width: 68%;
-  max-width: 280px;
-  margin: 0 auto 34px;
-  aspect-ratio: 4 / 5;
-  border-radius: 999px 999px 4px 4px;
-  overflow: hidden;
-  background: #f3eee9;
+  /* 아빠·엄마 어릴 적 사진 2분할 콜라주 (흰 프레임 포함 이미지) */
+  width: 100%;
+  margin: 0 auto 22px;
+  aspect-ratio: 5210 / 3300;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(60, 40, 30, 0.05), 0 10px 28px rgba(60, 40, 30, 0.07);
 }
 .parents__photo img { width: 100%; height: 100%; object-fit: cover; }
+/* 이름을 각 사진 아래에 맞춰 좌우 배치 */
 .parents__names {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   font-size: 15.5px;
   color: var(--text);
-  margin-bottom: 30px;
+  margin-bottom: 34px;
 }
 .parents__names b { font-weight: 600; }
 .parents__role { color: var(--text-sub); font-size: 13.5px; margin-right: 2px; }
-.parents__dot { margin: 0 12px; color: var(--point); }
 
 /* modal */
 .modal {

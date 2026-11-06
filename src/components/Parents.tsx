@@ -18,12 +18,15 @@ export default function Parents() {
   return (
     <section className="section section--parents" aria-label="부모님 소개">
       <div className="parents__photo" data-reveal>
-        <SmartImage src={photo} alt={`${CONFIG.baby.name} 사진`} />
+        <SmartImage src={photo} alt={`${dad.label}와 ${mom.label}의 어릴 적 사진`} />
       </div>
       <p className="parents__names" data-reveal>
-        <span className="parents__role">{dad.label}</span> <b>{show(dad.name)}</b>
-        <span className="parents__dot" aria-hidden="true">·</span>
-        <span className="parents__role">{mom.label}</span> <b>{show(mom.name)}</b>
+        <span>
+          <span className="parents__role">{dad.label}</span> <b>{show(dad.name)}</b>
+        </span>
+        <span>
+          <span className="parents__role">{mom.label}</span> <b>{show(mom.name)}</b>
+        </span>
       </p>
       <div data-reveal>
         <button type="button" className="btn btn--outline" onClick={() => setOpen(true)}>

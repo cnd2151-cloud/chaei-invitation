@@ -67,7 +67,8 @@ export const CONFIG = {
   /* ───────── 부모님 & 연락처 ─────────
    *  phone: 숫자만 또는 010-0000-0000 형식. 비워두면 '연락처 준비 중' 안내가 뜹니다. */
   parents: {
-    photo: '/images/parents/baby.webp',
+    /** 아빠·엄마 어릴 적 사진 2분할 콜라주 (tools/gen_parents.py 로 생성) */
+    photo: '/images/parents/collage.webp',
     dad: { label: '아빠', name: '박준', phone: '010-5739-5719' },
     mom: { label: '엄마', name: '조다듬', phone: '010-5110-6949' },
   },
