@@ -180,7 +180,7 @@ export const CONFIG = {
     thumbnailWidth: 1200,
     thumbnailHeight: 630,
     /** 카카오 디벨로퍼스 → 내 애플리케이션 → 앱 키 → 'JavaScript 키' */
-    kakaoJsKey: '',
+    kakaoJsKey: '83b935cbfddd1e2da795dcb21548c28e',
     kakaoButtonTitle: '초대장 보기',
   },
 } as const;
