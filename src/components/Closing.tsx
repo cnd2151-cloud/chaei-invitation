@@ -21,12 +21,17 @@ export default function Closing() {
     return () => io.disconnect();
   }, []);
 
-  const pageUrl = () => (CONFIG.share.siteUrl ? siteUrl() + '/' : window.location.href.split('#')[0]);
+  const pageUrl = () =>
+    __PREVIEW__ && __PREVIEW_URL__
+      ? __PREVIEW_URL__ // 미리보기 화면은 내부 프레임 안이라 주소창 주소 대신 공유 링크를 복사
+      : CONFIG.share.siteUrl
+        ? siteUrl() + '/'
+        : window.location.href.split('#')[0];
 
   const copyLink = async () => {
     const ok = await copyText(pageUrl());
     if (ok) toast('링크가 복사되었습니다.');
-    else window.prompt('아래 주소를 길게 눌러 복사해 주세요.', pageUrl());
+    else toast(`복사가 막혀 있어요. 이 주소를 길게 눌러 복사해 주세요: ${pageUrl()}`);
   };
 
   const kakao = async () => {

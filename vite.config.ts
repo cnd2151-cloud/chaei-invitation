@@ -50,6 +50,8 @@ export default defineConfig({
   define: {
     __SITE_URL__: JSON.stringify(resolveSiteUrl()),
     __PREVIEW__: JSON.stringify(process.env.PREVIEW === '1'),
+    /** 미리보기(Claude 공유 링크) 빌드에서 '링크 복사'가 복사할 주소 */
+    __PREVIEW_URL__: JSON.stringify(process.env.PREVIEW_URL || ''),
   },
   build: { target: 'es2019', assetsInlineLimit: 0 },
 });

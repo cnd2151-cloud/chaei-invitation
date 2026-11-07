@@ -49,6 +49,7 @@ export default function Parents() {
                 <div className="contact-row__who">
                   <span className="contact-row__role">{p.label}</span>
                   <b>{show(p.name)}</b>
+                  {__PREVIEW__ && p.phone && <span className="contact-row__num">{p.phone}</span>}
                 </div>
                 <div className="contact-row__acts">
                   <a className="icon-btn" href={num ? `tel:${num}` : '#'} onClick={guard} aria-label={`${p.label}에게 전화하기`}>
