@@ -161,7 +161,7 @@ export const CONFIG = {
    *  비워두면 버튼은 보이지만 누르면 '준비 중' 안내가 나옵니다.
    *  휴대폰 브라우저는 소리 자동재생을 막기 때문에, 처음 화면을 터치하는 순간 재생을 시작합니다. */
   bgm: {
-    src: '' as string,
+    src: '/audio/bgm.mp3' as string,
     volume: 0.6,
     /** true: 첫 터치 때 자동 재생 / false: 버튼을 눌러야 재생 */
     autoplay: true,
