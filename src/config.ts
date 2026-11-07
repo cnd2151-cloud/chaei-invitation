@@ -172,7 +172,7 @@ export const CONFIG = {
    *  ※ siteUrl 에는 배포된 주소를 넣으세요. (예: 'https://chaei-birthday.vercel.app')
    *     비워두면 Vercel/Netlify 의 기본 주소를 자동으로 사용합니다. */
   share: {
-    siteUrl: '',
+    siteUrl: 'https://chaei-invitation-hvjf.vercel.app',
     title: "채이의 첫 번째 생일에 초대합니다",
     description: '2026년 12월 13일 (일) 오후 2시 30분 · 송도 더비앙',
     /** 1200×630 권장. 교체 시 파일 이름을 바꾸면 카카오 캐시 문제도 피할 수 있어요. */
