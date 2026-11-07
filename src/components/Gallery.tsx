@@ -4,6 +4,9 @@ import SectionTitle from './SectionTitle';
 import SmartImage from './SmartImage';
 import Lightbox from './Lightbox';
 
+/** '/images/gallery/01.webp' → '/images/gallery/thumb/01.webp' (격자용 작은 썸네일) */
+const thumbOf = (src: string) => src.replace(/\/gallery\/([^/]+)$/, '/gallery/thumb/$1');
+
 export default function Gallery() {
   const photos = CONFIG.gallery.photos as readonly string[];
   const init = Math.min(CONFIG.gallery.initialCount, photos.length);
@@ -54,7 +57,7 @@ export default function Gallery() {
                   aria-label={`사진 ${i + 1} 크게 보기`}
                   tabIndex={!expanded && i >= init ? -1 : 0}
                 >
-                  <SmartImage src={src} alt="" />
+                  <SmartImage src={thumbOf(src)} fallbackSrc={src} alt="" />
                 </button>
               </li>
             ))}

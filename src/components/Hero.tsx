@@ -1,5 +1,6 @@
 import { asset } from '../lib/asset';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { canStrokeReveal, runStrokeReveal } from '../lib/strokeReveal';
 import { CONFIG } from '../config';
 import { CANVAS, DOODLES, LAYER_BOX, LAYER_ORDER } from '../generated/layers';
 import HandwrittenTitle from './HandwrittenTitle';
@@ -32,66 +33,62 @@ const SHADOWS = [
   { kind: 'core', x: 74.4, y: 95.8, w: 8.5, h: 1.6, r: 11.6, o: 1 },
 ] as const;
 
-/** 손그림 장식: 원본 손그림 이미지를 중심선 마스크로 그려가며 드러냄 */
+/** 손그림 장식(하트·왕관·Let's Party!): 원본 손그림을 획 순서대로 그려 나감 (캔버스 → 완료 후 SVG 고정) */
 function Doodles({ start }: { start: boolean }) {
-  const [done, setDone] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [phase, setPhase] = useState<'wait' | 'drawing' | 'done'>(() => (canStrokeReveal() ? 'wait' : 'done'));
+  const canvas = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    if (!start || done) return;
-    const end = Math.max(...DOODLES.flatMap((d) => d.strokes.map((s) => s.delay + s.dur)));
-    const t = window.setTimeout(() => setDone(true), (end + 0.6) * 1000);
-    return () => window.clearTimeout(t);
-  }, [start, done]);
+    if (!start || phase !== 'wait') return;
+    setPhase('drawing');
+    let stop = () => {};
+    let cancelled = false;
+    // 손그림 이미지를 모두 불러온 뒤 시작
+    const imgs = DOODLES.map((d) => {
+      const im = new Image();
+      im.src = asset(d.src);
+      return im;
+    });
+    Promise.all(imgs.map((im) => (im.complete ? Promise.resolve() : new Promise((r) => { im.onload = im.onerror = r; }))))
+      .then(() => {
+        if (cancelled || !canvas.current) return;
+        stop = runStrokeReveal(
+          canvas.current,
+          { x: CANVAS.x, y: CANVAS.y, w: CANVAS.w, h: CANVAS.h },
+          DOODLES.map((d, k) => ({
+            strokes: d.strokes,
+            paint: (ctx: CanvasRenderingContext2D) => ctx.drawImage(imgs[k], d.x, d.y, d.w, d.h),
+          })),
+          { delay: 0.25, onDone: () => setPhase('done') },
+        );
+      })
+      .catch(() => setPhase('done'));
+    return () => {
+      cancelled = true;
+      stop();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [start]);
   return (
-    <svg
-      className={`hero__doodles${start ? ' is-writing' : ''}`}
-      viewBox={`${CANVAS.x} ${CANVAS.y} ${CANVAS.w} ${CANVAS.h}`}
-      aria-hidden="true"
-    >
-      {!done && (
-        <defs>
-          {DOODLES.map((d) => (
-            <mask key={d.name} id={`dd-${d.name}`} maskUnits="userSpaceOnUse" x={d.x} y={d.y} width={d.w} height={d.h}>
-              {d.strokes.map((s, i) => (
-                <path
-                  key={i}
-                  d={s.d}
-                  className="hw-stroke"
-                  style={{
-                    strokeWidth: s.w,
-                    strokeDasharray: `${s.len} ${s.len}`,
-                    strokeDashoffset: s.len,
-                    animationDuration: `${s.dur}s`,
-                    animationDelay: `${s.delay + 0.25}s`,
-                  }}
-                />
-              ))}
-            </mask>
-          ))}
-        </defs>
-      )}
-      {DOODLES.map((d) => (
-        <image
-          key={d.name}
-          href={asset(d.src)}
-          x={d.x}
-          y={d.y}
-          width={d.w}
-          height={d.h}
-          mask={done ? undefined : `url(#dd-${d.name})`}
-          className={`doodle doodle--${d.name}`}
-        />
-      ))}
-    </svg>
+    <>
+      <svg
+        className={`hero__doodles is-${phase}`}
+        viewBox={`${CANVAS.x} ${CANVAS.y} ${CANVAS.w} ${CANVAS.h}`}
+        aria-hidden="true"
+      >
+        {DOODLES.map((d) => (
+          <image key={d.name} href={asset(d.src)} x={d.x} y={d.y} width={d.w} height={d.h} className={`doodle doodle--${d.name}`} />
+        ))}
+      </svg>
+      {phase !== 'done' && <canvas ref={canvas} className="hero__doodles hero__doodles-canvas" aria-hidden="true" />}
+    </>
   );
 }
 
 export default function Hero() {
-  const reduce = typeof window !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const [ready, setReady] = useState(reduce);
+  const [ready, setReady] = useState(false);
 
   // 메인 사진이 준비되면 애니메이션 시작 (최대 1.2초 대기)
   useEffect(() => {
-    if (reduce) return;
     let fired = false;
     const go = () => {
       if (fired) return;
@@ -104,7 +101,7 @@ export default function Hero() {
     img.onload = go;
     const t = window.setTimeout(go, 1200);
     return () => window.clearTimeout(t);
-  }, [reduce]);
+  }, []);
 
   const { event } = CONFIG;
   return (

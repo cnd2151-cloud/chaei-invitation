@@ -114,6 +114,9 @@ export const CONFIG = {
 
   /* ───────── 갤러리 ─────────
    *  사진 추가/삭제는 이 목록에 줄을 더하거나 지우면 됩니다. */
+  /*  사진 교체: public/images/gallery 에 같은 이름으로 덮어쓰거나, python3 tools/gen_gallery.py 로 생성
+   *  (격자에는 gallery/thumb/ 의 작은 정사각형 썸네일, 크게 보기에는 원본이 쓰입니다.
+   *   썸네일이 없으면 원본을 대신 사용합니다.) */
   gallery: {
     initialCount: 9, // 처음에 보여줄 사진 수 (3의 배수 추천)
     photos: [
@@ -150,6 +153,19 @@ export const CONFIG = {
 
   /* ───────── 마지막 사진 ───────── */
   finalPhoto: '/images/final/final.webp',
+  /** 마지막 사진 비율 (가로 / 세로). 가로 사진 '3 / 2', 세로 사진 '4 / 5' */
+  finalPhotoRatio: '3 / 2',
+
+  /* ───────── 배경음악 ─────────
+   *  MP3 파일을 public/audio/ 에 넣고 src 에 경로를 적으세요. (예: '/audio/bgm.mp3')
+   *  비워두면 버튼은 보이지만 누르면 '준비 중' 안내가 나옵니다.
+   *  휴대폰 브라우저는 소리 자동재생을 막기 때문에, 처음 화면을 터치하는 순간 재생을 시작합니다. */
+  bgm: {
+    src: '' as string,
+    volume: 0.6,
+    /** true: 첫 터치 때 자동 재생 / false: 버튼을 눌러야 재생 */
+    autoplay: true,
+  },
 
   /* ───────── 공유 (카카오톡 · 링크 미리보기) ─────────
    *  ※ title / description / thumbnail 은 빌드할 때 HTML 의 og 메타태그에도 들어갑니다.

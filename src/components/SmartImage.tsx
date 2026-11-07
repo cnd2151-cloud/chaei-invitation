@@ -9,9 +9,11 @@ import { asset } from '../lib/asset';
 export default function SmartImage({
   className = '',
   lazy,
+  fallbackSrc,
   ...rest
-}: ImgHTMLAttributes<HTMLImageElement> & { lazy?: boolean }) {
+}: ImgHTMLAttributes<HTMLImageElement> & { lazy?: boolean; fallbackSrc?: string }) {
   const [state, setState] = useState<'loading' | 'ok' | 'err'>('loading');
+  const [src, setSrc] = useState(rest.src);
   const ref = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -43,12 +45,16 @@ export default function SmartImage({
     <img
       {...rest}
       ref={ref}
-      src={rest.src ? asset(rest.src) : rest.src}
+      src={src ? asset(src) : src}
       className={`${className} smart-img${state === 'ok' ? ' is-loaded' : ''}`}
       loading={lazy ? 'lazy' : 'eager'}
       decoding="async"
       onLoad={() => setState('ok')}
-      onError={() => setState('err')}
+      onError={() => {
+        // 썸네일이 없으면 원본 사진으로 한 번 더 시도
+        if (fallbackSrc && src !== fallbackSrc) setSrc(fallbackSrc);
+        else setState('err');
+      }}
     />
   );
 }

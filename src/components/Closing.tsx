@@ -46,7 +46,7 @@ export default function Closing() {
 
   return (
     <section className="section section--closing" ref={ref} aria-label="감사 인사 및 공유">
-      <div className="closing__photo" data-reveal>
+      <div className="closing__photo" data-reveal style={{ aspectRatio: CONFIG.finalPhotoRatio }}>
         <SmartImage src={CONFIG.finalPhoto} alt="마지막 사진" />
       </div>
       <p className="closing__en" data-reveal>Thank you</p>

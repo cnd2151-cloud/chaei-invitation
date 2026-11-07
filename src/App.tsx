@@ -9,6 +9,7 @@ import Gallery from './components/Gallery';
 import Location from './components/Location';
 import Accounts from './components/Accounts';
 import Closing from './components/Closing';
+import BgmButton from './components/BgmButton';
 
 function Page() {
   useRevealAll();
@@ -31,6 +32,7 @@ export default function App() {
   return (
     <ToastProvider>
       <Page />
+      <BgmButton />
     </ToastProvider>
   );
 }

@@ -30,7 +30,6 @@ export default function Snow({ density = 34 }: { density?: number }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const n = Math.round(density * Math.min(1.4, (W * H) / (430 * 820)));
       flakes = Array.from({ length: reduce ? Math.round(n / 2) : n }, () => make(true));
-      if (reduce) draw(0);
     };
     const draw = (dt: number) => {
       ctx.clearRect(0, 0, W, H);
@@ -59,7 +58,7 @@ export default function Snow({ density = 34 }: { density?: number }) {
       draw(dt);
       raf = requestAnimationFrame(loop);
     };
-    const play = () => { if (!raf && visible && !document.hidden && !reduce) { last = 0; raf = requestAnimationFrame(loop); } };
+    const play = () => { if (!raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(loop); } };
     const stop = () => { cancelAnimationFrame(raf); raf = 0; };
 
     resize();
